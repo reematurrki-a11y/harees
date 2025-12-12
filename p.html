@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>متابعة نشاط الهوية (Demo)</title>
+  <style>
+    :root{
+      --green:#0a7d63; --green2:#0a6a54;
+      --bg:#f4f6f7; --card:#ffffff; --line:#e6e6e6;
+      --text:#1f1f1f; --muted:#6b6b6b;
+      --danger:#e64545; --warn:#f2b705;
+    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto; background:var(--bg); color:var(--text);}
+    .phone{
+      max-width:420px; margin:18px auto; background:var(--bg);
+      border-radius:18px; overflow:hidden; border:1px solid #ddd;
+    }
+    .topbar{
+      background:#fff; padding:14px 14px 10px; border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:700}
+    .burger{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;background:#fff}
+    .pill{font-size:12px;color:var(--muted)}
+    .title{padding:12px 14px; font-weight:800;}
+    .row{display:flex; gap:10px; padding:0 14px 10px;}
+    .select{
+      flex:1; background:#fff; border:1px solid var(--line); border-radius:12px;
+      padding:10px; display:flex; justify-content:space-between; align-items:center; color:var(--muted);
+      font-size:14px;
+    }
+    .cards{display:flex; flex-direction:column; gap:10px; padding:0 14px 14px;}
+    .card{
+      background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    }
+    .card .head{
+      padding:10px 12px; background:rgba(10,125,99,.12);
+      display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+    }
+    .card.red .head{ background:rgba(230,69,69,.14); }
+    .kv{font-size:12px; color:var(--muted); line-height:1.45}
+    .kv b{color:var(--text)}
+    .tag{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      background:#fff; border:1px solid var(--line); color:var(--muted); white-space:nowrap;
+    }
+    .actions{padding:10px 12px; display:flex; gap:10px; flex-wrap:wrap}
+    button{
+      border:0; border-radius:10px; padding:10px 12px; cursor:pointer;
+      font-weight:700; font-size:13px;
+    }
+    .btn{background:#fff;border:1px solid var(--line);color:var(--text)}
+    .btnGreen{background:var(--green); color:#fff}
+    .btnGreen:hover{background:var(--green2)}
+    .btnDanger{background:var(--danger); color:#fff}
+    .footer{padding:12px 14px; border-top:1px solid var(--line); background:#fff}
+    .homeBtn{width:100%; background:var(--green); color:#fff; padding:12px; border-radius:12px;}
+
+    /* Modal */
+    .overlay{
+      position:fixed; inset:0; background:rgba(0,0,0,.35);
+      display:none; align-items:center; justify-content:center; padding:18px;
+    }
+    .overlay.show{display:flex;}
+    .modal{
+      width:min(420px, 100%); background:#fff; border-radius:16px; overflow:hidden;
+      border:1px solid var(--line); box-shadow:0 20px 60px rgba(0,0,0,.25);
+    }
+    .modalBody{padding:16px;}
+    .modalHead{display:flex; gap:12px; align-items:center;}
+    .icon{
+      width:44px; height:44px; border-radius:12px; display:grid; place-items:center;
+      background:rgba(242,183,5,.18); color:#9a7500; font-size:22px; font-weight:900;
+    }
+    .icon.ok{background:rgba(10,125,99,.14); color:var(--green);}
+    .icon.pause{background:rgba(0,0,0,.08); color:#000;}
+    .modalTitle{font-weight:900; font-size:16px;}
+    .modalText{margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.6;}
+    .modalBtns{display:flex; gap:10px; padding:14px; border-top:1px solid var(--line); background:#fafafa}
+    .modalBtns button{flex:1}
+  </style>
+</head>
+
+<body>
+  <div class="phone">
+    <div class="topbar">
+      <div class="burger">☰</div>
+      <div class="brand">
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(10,125,99,.14);display:grid;place-items:center;color:var(--green);font-weight:900;">أ</div>
+        <div>
+          أبشر <div class="pill">متابعة نشاط الهوية</div>
+        </div>
+      </div>
+      <div class="pill">English</div>
+    </div>
+
+    <div class="title">متابعة نشاط الهوية</div>
+
+    <div class="row">
+      <div class="select">إعدادات التنبيه <span>▾</span></div>
+      <div class="select">تصنيف حسب <span>▾</span></div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="head">
+          <div class="kv">
+            <div><b>نوع النشاط:</b> دخول إلى منصة أبشر</div>
+            <div><b>المدينة:</b> الرياض</div>
+            <div><b>الوقت:</b> 10:15 م</div>
+            <div><b>التاريخ:</b> 2024-07-09</div>
+          </div>
+          <div class="tag">iPhone 7</div>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="openModal('warn')">عرض التنبيه</button>
+          <button class="btnGreen" onclick="openModal('success')">تأكيد النشاط</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head">
+          <div class="kv">
+            <div><b>نوع النشاط:</b> تقديم طلب تجديد هوية</div>
+            <div><b>المدينة:</b> جدة</div>
+            <div><b>الوقت:</b> 1:00 م</div>
+            <div><b>التاريخ:</b> 2024-08-14</div>
+          </div>
+          <div class="tag">MacBook</div>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="openModal('warn')">عرض التنبيه</button>
+          <button class="btnGreen" onclick="openModal('success')">تأكيد النشاط</button>
+        </div>
+      </div>
+
+      <div class="card red">
+        <div class="head">
+          <div class="kv">
+            <div><b>نوع النشاط:</b> دخول إلى خدمة حكومية</div>
+            <div><b>المدينة:</b> خارج السعودية</div>
+            <div><b>الوقت:</b> 11:45 م</div>
+            <div><b>التاريخ:</b> 2024-12-29</div>
+          </div>
+          <div class="tag">غير معروف</div>
+        </div>
+        <div class="actions">
+          <button class="btnDanger" onclick="openModal('suspend')">غير طبيعي (تعليق)</button>
+          <button class="btn" onclick="openModal('warn')">هل هذا أنت؟</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button class="homeBtn">الرئيسية</button>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="overlay" class="overlay" onclick="closeIfOutside(event)">
+    <div class="modal" id="modal">
+      <div class="modalBody">
+        <div class="modalHead">
+          <div id="mIcon" class="icon">!</div>
+          <div>
+            <div id="mTitle" class="modalTitle">تم رصد استخدام غير طبيعي لهويتك</div>
+            <div id="mText" class="modalText">هل هذا أنت؟</div>
+          </div>
+        </div>
+      </div>
+      <div class="modalBtns" id="mBtns">
+        <button class="btn" onclick="closeModal()">لا، لست أنا</button>
+        <button class="btnGreen" onclick="openModal('success')">نعم، هذا أنا</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const overlay = document.getElementById("overlay");
+    const mIcon = document.getElementById("mIcon");
+    const mTitle = document.getElementById("mTitle");
+    const mText  = document.getElementById("mText");
+    const mBtns  = document.getElementById("mBtns");
+
+    function openModal(type){
+      overlay.classList.add("show");
+
+      if(type === "warn"){
+        mIcon.className = "icon";
+        mIcon.textContent = "!";
+        mTitle.textContent = "تم رصد استخدام غير طبيعي لهويتك";
+        mText.textContent  = "هل هذا أنت؟";
+        mBtns.innerHTML = `
+          <button class="btn" onclick="closeModal()">لا، لست أنا</button>
+          <button class="btnGreen" onclick="openModal('success')">نعم، هذا أنا</button>
+        `;
+      }
+
+      if(type === "success"){
+        mIcon.className = "icon ok";
+        mIcon.textContent = "✓";
+        mTitle.textContent = "شكرًا لك، تم تأكيد النشاط";
+        mText.textContent  = "تم تسجيل تأكيدك بنجاح.";
+        mBtns.innerHTML = `
+          <button class="btn" onclick="closeModal()">إغلاق</button>
+          <button class="btnGreen" onclick="closeModal()">الرئيسية</button>
+        `;
+      }
+
+      if(type === "suspend"){
+        mIcon.className = "icon pause";
+        mIcon.textContent = "⏸";
+        mTitle.textContent = "سيتم تعليق الدخول مؤقتًا";
+        mText.textContent  = "تم رصد نشاط غير مصرح به.";
+        mBtns.innerHTML = `
+          <button class="btn" onclick="closeModal()">تقديم بلاغ</button>
+          <button class="btnGreen" onclick="closeModal()">تغيير كلمة المرور</button>
+        `;
+      }
+    }
+
+    function closeModal(){ overlay.classList.remove("show"); }
+    function closeIfOutside(e){
+      if(e.target === overlay) closeModal();
+    }
+  </script>
+</body>
+</html>
