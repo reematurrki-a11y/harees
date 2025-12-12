@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>أبشر - الرئيسية (Demo)</title>
+  <style>
+    :root{
+      --g:#0a7d63; --bg:#f4f6f7; --line:#e6e6e6; --txt:#1f1f1f; --mut:#6b6b6b;
+    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto;background:var(--bg);color:var(--txt);}
+    .phone{max-width:420px;margin:18px auto;background:var(--bg);border:1px solid #ddd;border-radius:18px;overflow:hidden}
+    .top{background:#fff;border-bottom:1px solid var(--line);padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
+    .burger{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800}
+    .logo{width:36px;height:36px;border-radius:12px;background:rgba(10,125,99,.12);display:grid;place-items:center;color:var(--g)}
+    .searchWrap{padding:12px 14px}
+    .search{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px;color:var(--mut)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px 14px}
+    .tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+    .ico{width:36px;height:36px;margin:0 auto 8px;border-radius:12px;background:rgba(10,125,99,.12);display:grid;place-items:center;color:var(--g);font-weight:900}
+    .tile b{display:block;font-size:13px}
+    .sectionTitle{padding:10px 14px;color:var(--mut);font-weight:800;text-align:center}
+    .slider{padding:0 14px 18px}
+    .sliderRow{display:flex;align-items:center;gap:12px;justify-content:center}
+    .arrow{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+    .card{flex:1;max-width:230px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;text-align:center}
+    .card .ico{width:42px;height:42px;border-radius:14px}
+    .dots{display:flex;gap:6px;justify-content:center;margin-top:10px}
+    .dot{width:8px;height:8px;border-radius:50%;background:#cfd6d6}
+    .dot.on{background:var(--g)}
+    a{color:inherit;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="top">
+      <div class="burger">☰</div>
+      <div class="brand">
+        <div class="logo">أ</div>
+        <div>أبشر</div>
+      </div>
+      <div style="color:var(--mut);font-size:12px">English</div>
+    </div>
+
+    <div class="searchWrap">
+      <div class="search">
+        🔍 <span style="flex:1;text-align:right">اكتب هنا للبحث</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="tile"><div class="ico">🚗</div><b>المركبات</b></div>
+      <div class="tile"><div class="ico">🧾</div><b>خدماتي</b></div>
+      <div class="tile"><div class="ico">👥</div><b>العمالة</b></div>
+      <div class="tile"><div class="ico">👨‍👩‍👧‍👦</div><b>أفراد الأسرة</b></div>
+      <div class="tile" style="grid-column:1 / span 2; max-width:200px; margin:0 auto;">
+        <div class="ico">📅</div><b>مواعيد</b>
+      </div>
+    </div>
+
+    <div class="sectionTitle">خدمات أخرى</div>
+
+    <div class="slider">
+      <div class="sliderRow">
+        <button class="arrow" id="prev">›</button>
+
+        <a class="card" id="cardLink" href="follow.html">
+          <div class="ico">🪪</div>
+          <b>متابعة نشاط الهوية</b>
+        </a>
+
+        <button class="arrow" id="next">‹</button>
+      </div>
+
+      <div class="dots" id="dots">
+        <div class="dot on"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // سلايدر بسيط (Dummy) يغيّر النقطة فقط
+    let idx = 0;
+    const dots = [...document.querySelectorAll(".dot")];
+    function paint(){
+      dots.forEach((d,i)=>d.classList.toggle("on", i===idx));
+    }
+    document.getElementById("prev").onclick = ()=>{ idx = (idx+1)%dots.length; paint(); };
+    document.getElementById("next").onclick = ()=>{ idx = (idx-1+dots.length)%dots.length; paint(); };
+  </script>
+</body>
+</html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>متابعة نشاط الهوية (Demo)</title>
+  <style>
+    :root{
+      --g:#0a7d63; --bg:#f4f6f7; --line:#e6e6e6; --txt:#1f1f1f; --mut:#6b6b6b;
+      --danger:#e64545;
+    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto;background:var(--bg);color:var(--txt);}
+    .phone{max-width:420px;margin:18px auto;background:var(--bg);border:1px solid #ddd;border-radius:18px;overflow:hidden}
+    .top{background:#fff;border-bottom:1px solid var(--line);padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
+    .burger{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800}
+    .logo{width:36px;height:36px;border-radius:12px;background:rgba(10,125,99,.12);display:grid;place-items:center;color:var(--g)}
+    .crumbs{padding:10px 14px;color:var(--mut);font-size:12px}
+    .pageTitle{padding:0 14px 10px;font-weight:900}
+    .card{margin:0 14px 14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+    .desc{color:var(--mut);font-size:13px;line-height:1.7;margin:0 0 12px}
+    label{display:block;font-size:13px;font-weight:800;margin:10px 0 6px}
+    .req{color:var(--danger);margin-right:4px}
+    input{
+      width:100%; box-sizing:border-box;
+      border:1px solid var(--line); border-radius:12px;
+      padding:12px; font-size:14px; outline:none; background:#fff;
+    }
+    input:focus{border-color:rgba(10,125,99,.6)}
+    .btn{
+      width:100%; margin-top:12px;
+      border:0; border-radius:12px; padding:12px;
+      background:var(--g); color:#fff; font-weight:900; cursor:pointer;
+    }
+    .err{display:none;color:var(--danger);font-size:12px;margin-top:10px}
+    a{color:inherit;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="top">
+      <a class="burger" href="home.html">←</a>
+      <div class="brand">
+        <div class="logo">أ</div>
+        <div>أبشر</div>
+      </div>
+      <div style="color:var(--mut);font-size:12px">English</div>
+    </div>
+
+    <div class="crumbs">الخدمات الإلكترونية / استعلامات / متابعة نشاط الهوية</div>
+    <div class="pageTitle">متابعة نشاط الهوية</div>
+
+    <div class="card">
+      <p class="desc">
+        مرحبًا بك في خدمة متابعة نشاط الهوية. تتيح لك هذه الخدمة الاطلاع على أنشطة هويتك الوطنية خلال الزمن،
+        والتأكد من عدم وجود نشاطات غير مصرح بها.
+      </p>
+
+      <label><span class="req">*</span>رقم هوية المستفيد</label>
+      <input id="idNum" placeholder="اكتب رقم الهوية" inputmode="numeric" />
+
+      <label><span class="req">*</span>حقول مطلوبة</label>
+      <input id="dummy" placeholder="مثال: رقم الطلب / رمز تحقق" />
+
+      <button class="btn" id="go">متابعة</button>
+      <div class="err" id="err">فضلاً عبّي الحقول المطلوبة بشكل صحيح.</div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("go").onclick = () => {
+      const id = document.getElementById("idNum").value.trim();
+      const d  = document.getElementById("dummy").value.trim();
+      const ok = id.length >= 8 && d.length > 0; // تحقق بسيط للديمو
+      document.getElementById("err").style.display = ok ? "none" : "block";
+
+      if(ok){
+        // هنا ممكن تودّيك لصفحة النتائج (أو نفس صفحة النشاط اللي سويت لك قبل)
+        alert("تم إرسال الطلب (Demo) ✅");
+      }
+    };
